@@ -28,3 +28,20 @@ venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
+
+## 📸 Screenshots
+
+### Login Page
+![Login Page](screenshots/login.png)
+
+### Student Dashboard
+![Student Dashboard](screenshots/student_dashboard.png)
+
+### Teacher Dashboard
+![Teacher Dashboard](screenshots/teacher_dashboard.png)
+
+### Notices
+![Notices](screenshots/notices.png)
+
+### Grievance System
+![Grievances](screenshots/grievances.png)
