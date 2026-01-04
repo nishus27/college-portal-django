@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Note</title>
+  <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+  <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+</head>
+
+<body>
+
+<div class="app-container">
+
+  <!-- 🔹 SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+        <img src="{% static 'images/logo.png' %}" alt="Smart Campus Assistant">
+    </div>
+
+    <div class="sidebar-brand">
+        <span class="brand-smart">Smart</span>
+        <span class="brand-campus">Campus</span>
+        <span class="brand-assistant">Assistant</span>
+    </div>
+
+    <a href="{% url 'profile' %}">Profile</a>
+    <a href="{% url 'teacher_notes' %}">Notes</a>
+    <a href="/notices/">Notices</a>
+    <a href="/grievance/">Grievance</a>
+    <a href="/dashboard/">⬅ Back</a>
+  </div>
+
+  <!-- 🔹 MAIN CONTENT -->
+  <div class="main-content">
+
+    <h2>Edit Note</h2>
+
+    <div class="edit-note-box">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <label>Title</label>
+        <input type="text" name="title" value="{{ note.title }}" required>
+
+        <label>Replace PDF (optional)</label>
+        <input type="file" name="pdf">
+
+        <button type="submit" class="btn update">Update Note</button>
+        <a href="/teacher_notes/" class="btn cancel">Cancel</a>
+      </form>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
+ 

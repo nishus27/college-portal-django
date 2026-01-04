@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Notes</title>
+  <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+</head>
+<body>
+    <!-- ===== SIDEBAR ===== -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+        <img src="{% static 'images/logo.png' %}" alt="Smart Campus Assistant">
+    </div>
+
+    <div class="sidebar-brand">
+        <span class="brand-smart">Smart</span>
+        <span class="brand-campus">Campus</span>
+        <span class="brand-assistant">Assistant</span>
+    </div>
+  <a href="/profile/">👤 Profile</a>
+  <a href="/chatbot/">🤖 AI Chatbot</a>
+  <a href="/notices/">📢 Notices</a>
+  <a href="{% url 'student_notes' %}">📚 Notes</a>
+  <a href="/notes/">Notes List</a>
+  <a href="/grievance/">📝 Grievance</a>
+  <a href="/dashboard">🢀 Back to Dashboard</a>
+</div>
+
+<div class="app">
+  <h2>📚 Available Notes</h2>
+
+  <div class="notes-grid">
+    {% for note in notes %}
+      <div class="note-card">
+        <p>{{ note.title }}</p>
+        <small>Uploaded by {{ note.uploaded_by.username }}</small>
+        <a href="{{ note.pdf.url }}" target="_blank">Download</a>
+      </div>
+    {% empty %}
+      <p>No notes available.</p>
+    {% endfor %}
+  </div>
+</div>
+
+</body>
+</html>

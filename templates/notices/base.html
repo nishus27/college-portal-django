@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Portal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+<nav class="bg-blue-600 text-white px-6 py-4 flex justify-between">
+    <h1 class="font-bold text-xl">College Portal</h1>
+    <div>
+        <a href="/dashboard/" class="mr-4 hover:underline">🢀 Back</a>
+        <a href="/logout/" class="hover:underline">⏻Logout</a>
+    </div>
+</nav>
+
+<div class="container mx-auto p-6">
+    {% block content %}{% endblock %}
+</div>
+
+</body>
+</html>

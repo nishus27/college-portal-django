@@ -1,0 +1,31 @@
+{% extends 'notices/base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white p-6 rounded-xl shadow">
+    <h2 class="text-2xl font-bold mb-4 text-center">📢 Create Notice</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-4">
+        {% csrf_token %}
+
+        <input type="text" name="title" placeholder="Notice Title"
+               class="w-full border p-2 rounded" required>
+
+        <textarea name="description" rows="5"
+                  placeholder="Notice Description"
+                  class="w-full border p-2 rounded" required></textarea>
+
+        <select name="category" class="w-full border p-2 rounded">
+            <option>Exam</option>
+            <option>Event</option>
+            <option>Academic</option>
+            <option>Placement</option>
+        </select>
+
+        <input type="file" name="attachment" class="w-full">
+
+        <button class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+            Publish Notice
+        </button>
+    </form>
+</div>
+{% endblock %}

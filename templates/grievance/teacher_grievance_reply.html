@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reply Grievance</title>
+  <link rel="stylesheet" href="{% static 'css/teacher_grievance_reply.css ' %}">
+</head>
+<body>
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <img src="{% static 'images/logo.png' %}" alt="Smart Campus Assistant">
+    </div>
+
+    <div class="sidebar-brand">
+        <span class="brand-smart">Smart</span>
+        <span class="brand-campus">Campus</span>
+        <span class="brand-assistant">Assistant</span>
+    </div>
+
+  <a href="/profile/">👤 Profile</a>
+  <a href="/chatbot/">🤖 AI Chatbot</a>
+  <a href="{% url 'student_notice_list' %}">📢 Notices</a>
+  <a href="{% url 'student_notes' %}">📚 Notes</a>
+  <a href="/dashboard/">← Back</a> 
+
+  <a href="/logout/" class="hover:underline">⏻Logout</a>
+</div>
+
+<div class="main">
+  <h1>💬 Reply to Grievance</h1>
+
+  <div class="card">
+    <h3>{{ grievance.title }}</h3>
+    <p>{{ grievance.description }}</p>
+  </div>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <label>Your Reply</label>
+    <textarea name="reply" rows="5" required>{{ grievance.reply }}</textarea>
+
+    <button type="submit" class="btn">Send Reply</button>
+    <a href="{% url 'teacher_grievance_list' %}" class="btn-sm">Back</a>
+  </form>
+</div>
+
+</body>
+</html>

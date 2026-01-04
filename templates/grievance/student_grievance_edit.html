@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Grievance</title>
+    
+<link rel="stylesheet" href="{% static 'css/student_grievance_edit.css' %}">
+
+</head>
+<body>
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+        <img src="{% static 'images/logo.png' %}" alt="Smart Campus Assistant">
+    </div>
+
+    <div class="sidebar-brand">
+        <span class="brand-smart">Smart</span>
+        <span class="brand-campus">Campus</span>
+        <span class="brand-assistant">Assistant</span>
+    </div>
+
+  <a href="/profile/">👤 Profile</a>
+  <a href="/chatbot/">🤖 AI Chatbot</a>
+  <a href="{% url 'student_notice_list' %}">📢 Notices</a>
+  <a href="{% url 'student_notes' %}">📚 Notes</a>
+  <a href="/dashboard/">← Back</a>
+
+  <a href="/logout/" class="hover:underline">⏻Logout</a>
+</div>
+
+<div class="main">
+  <h1>✏️ Edit Grievance</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <label>Title</label>
+    <input type="text" name="title" value="{{ grievance.title }}" required>
+
+    <label>Description</label>
+    <textarea name="description" rows="5" required>{{ grievance.description }}</textarea>
+
+    <button type="submit" class="btn">Update</button>
+    <a href="{% url 'student_grievance_list' %}" class="btn-sm">Cancel</a>
+  </form>
+</div>
+
+</body>
+</html>

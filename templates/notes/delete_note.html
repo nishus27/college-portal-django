@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Note</title>
+    <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- 🔹 SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+        <img src="{% static 'images/logo.png' %}" alt="Smart Campus Assistant">
+    </div>
+
+    <div class="sidebar-brand">
+        <span class="brand-smart">Smart</span>
+        <span class="brand-campus">Campus</span>
+        <span class="brand-assistant">Assistant</span>
+    </div>
+
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="/notices/">Notices</a>
+        <a href="/teacher_notes/" class="active">Notes</a>
+        <a href="/grievance/">Grievance</a>
+        <a href="/dashboard/">← Back</a>
+    </div>
+
+    <!-- 🔹 MAIN CONTENT -->
+    <div class="main-content">
+
+        <div class="delete-box">
+            <h2>Delete Note</h2>
+
+            <p>
+                Are you sure you want to delete
+                <strong>{{ note.title }}</strong>?
+            </p>
+
+            <form method="post">
+                {% csrf_token %}
+
+                <button type="submit" class="btn delete">
+                    Yes, Delete
+                </button>
+
+                <a href="{% url 'notes_list' %}" class="btn cancel">
+                    Cancel
+                </a>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+ 

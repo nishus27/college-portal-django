@@ -1,0 +1,113 @@
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: #f4f6fb;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .chat-container {
+      background: #ece5dd;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      height: 500px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .chat-header {
+      background: #075e54;
+      color: white;
+      padding: 12px;
+      border-radius: 14px 14px 0 0;
+      font-weight: 600;
+    }
+
+    .chat-box {
+      flex: 1;
+      padding: 12px;
+      overflow-y: auto;
+    }
+
+    .message {
+      max-width: 70%;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .user {
+      background: #dcf8c6;
+      margin-left: auto;
+    }
+
+    .bot {
+      background: white;
+    }
+
+    .typing {
+      opacity: 0.6;
+      font-style: italic;
+    }
+
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      background: #f0f0f0;
+      border-radius: 0 0 14px 14px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 20px;
+      border: none;
+      outline: none;
+    }
+
+    .chat-input button {
+      background: #075e54;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 50%;
+      margin-left: 6px;
+      cursor: pointer;
+    } 
+
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        width: 230px;
+        background: #1e293b;
+        color: white;
+        padding: 20px;
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 20px;
+    }
+
+    .sidebar a {
+        display: block;
+        padding: 12px;
+        margin-bottom: 10px;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+        background: #334155;
+    }

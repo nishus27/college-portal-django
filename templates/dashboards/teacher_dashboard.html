@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Teacher Dashboard</title>
+  <link rel ="stylesheet"  href="{% static 'css/student_dashboard.css' %}"> 
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar" id="sidebar">
+   <div class="sidebar-logo">
+        <img src="{% static 'images/logo.png' %}" alt="Smart Campus Assistant">
+    </div>
+
+    <div class="sidebar-brand">
+        <span class="brand-smart">Smart</span>
+        <span class="brand-campus">Campus</span>
+        <span class="brand-assistant">Assistant</span>
+    </div>
+  <a href="/profile/">👤 Profile</a>
+  <a href="{% url 'teacher_notice_list' %}">📢 Manage Notices</a>
+  <a href="{% url 'teacher_notice_create' %}">➕ Create Notice</a>
+  <a href="{% url 'teacher_notes' %}">📚 Notes</a>
+   <a href="{% url 'teacher_grievance_list' %}">📝 Student Grievances</a>
+
+  <a href="/logout/" class="hover:underline">⏻Logout</a>
+</div>
+
+<!-- ===== MAIN ===== -->
+<div class="main">
+  <div class="topbar">
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <h1>Teacher Dashboard</h1>
+
+    <!-- TOP RIGHT PROFILE -->
+    <a href="/profile/" class="profile-box">
+  <img src="{{ request.session.profile_pic|default:'/static/images/default_profile.png' }}" alt="Profile">
+  <span>{{ request.session.full_name|default:request.user.username }}</span>
+</a>
+
+  </div>
+
+  <!-- DASHBOARD CARDS -->
+   <div class="cards">
+
+  <a href="{% url 'teacher_notice_list' %}" class="card-link">
+    <div class="card">
+      <h3>Notices</h3>
+      <p>Create and manage important announcements for students.</p>
+    </div>
+  </a>
+
+  <a href="{% url 'teacher_notes' %}" class="card-link">
+    <div class="card">
+      <h3>Notes</h3>
+      <p>Upload study materials and track student access.</p>
+    </div>
+  </a>
+
+  <a href="{% url 'teacher_grievance_list' %}" class="card-link">
+    <div class="card">
+      <h3>Grievances</h3>
+      <p>View and respond to student grievances.</p>
+    </div>
+  </a>
+
+</div>
+
+
+<!-- ===== JS (SIDEBAR TOGGLE ONLY) ===== -->
+<script>
+  function toggleMenu() {
+    document.getElementById("sidebar").classList.toggle("active");
+  }
+</script>
+
+</body>
+</html>

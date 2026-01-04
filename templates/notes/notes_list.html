@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes</title>
+    <link rel="stylesheet" href="{% static 'css/notes.css' %}">
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- 🔹 SIDEBAR -->
+    <div class="sidebar">
+        <h3>Dashboard</h3>
+
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="/notices/">Notices</a>
+        <a href="student/notes/" class="active">Notes</a>
+        <a href="/grievance/">Grievance</a>
+        <a href="/dashboard/">← Back</a>
+    </div>
+
+    <!-- 🔹 MAIN CONTENT -->
+    <div class="main-content">
+
+        <h1>Notes</h1>
+
+        <!-- 🔍 SEARCH BAR -->
+        <form method="get" class="search-box">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search notes..."
+                value="{{ search_query }}"
+            >
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- 📚 NOTES LIST -->
+        <div class="notes-grid">
+            {% for note in page_obj %}
+                <div class="note-card">
+
+                    <h3>{{ note.title }}</h3>
+
+                    <a href="{{ note.pdf.url }}" target="_blank" class="view-btn">
+                        View PDF
+                    </a>
+
+                    {% if request.user.is_staff %}
+                        <div class="actions">
+                            <a href="{% url 'edit_note' note.id %}" class="edit">Edit</a>
+                            <a href="{% url 'delete_note' note.id %}" class="delete"
+                               onclick="return confirm('Delete this note?')">
+                               Delete
+                            </a>
+                        </div>
+                    {% endif %}
+
+                </div>
+            {% empty %}
+                <p class="empty-text">No notes found.</p>
+            {% endfor %}
+        </div>
+
+        <!-- 🔢 PAGINATION -->
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?q={{ search_query }}&page={{ page_obj.previous_page_number }}">
+                    Previous
+                </a>
+            {% endif %}
+
+            <span>
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?q={{ search_query }}&page={{ page_obj.next_page_number }}">
+                    Next
+                </a>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
