@@ -8,7 +8,6 @@ from django.conf import settings
 import logging
 import os
 import json
-from django.shortcuts import render
 from django.http import JsonResponse
 import google.generativeai as genai
 from django.core.paginator import Paginator

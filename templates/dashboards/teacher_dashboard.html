@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Teacher Dashboard</title>
-  <link rel ="stylesheet"  href="{% static 'css/student_dashboard.css' %}"> 
+  <link rel ="stylesheet"  href="{% static 'css/teacher_dashboard.css' %}"> 
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -27,7 +27,7 @@
   <a href="{% url 'teacher_notes' %}">📚 Notes</a>
    <a href="{% url 'teacher_grievance_list' %}">📝 Student Grievances</a>
 
-  <a href="/logout/" class="hover:underline">⏻Logout</a>
+  <a href="{% url 'logout' %}" class="hover:underline">⏻Logout</a>
 </div>
 
 <!-- ===== MAIN ===== -->
