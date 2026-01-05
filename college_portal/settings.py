@@ -41,10 +41,11 @@ DEBUG = True
 
 
 ALLOWED_HOSTS = [
-    'college-portal-99hd.onrender.com',
-    '.onrender.com',
-    '127.0.0.1',
-    'localhost'
+    # 'college-portal-99hd.onrender.com',
+    # '.onrender.com',
+    # '127.0.0.1',
+    # 'localhost'
+    "*"
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
