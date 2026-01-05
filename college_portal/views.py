@@ -10,7 +10,6 @@ import os
 import json
 from django.shortcuts import render
 from django.http import JsonResponse
-from google.genai import Client, errors
 import google.generativeai as genai
 from django.core.paginator import Paginator
 from django.db.models import Q
@@ -26,7 +25,12 @@ def register_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         confirm_password = request.POST.get('confirm_password')
-        role = request.POST.get('role')  # STUDENT or TEACHER
+        role = request.POST.get('role')
+
+        if not all([username, email, password, confirm_password, role]):
+            return render(request, 'accounts/register.html', {
+                'error': 'All fields are required'
+            })
 
         if password != confirm_password:
             return render(request, 'accounts/register.html', {
@@ -35,22 +39,15 @@ def register_view(request):
 
         if role not in ['STUDENT', 'TEACHER']:
             return render(request, 'accounts/register.html', {
-                'error': 'Please select a valid role'
+                'error': 'Invalid role'
             })
 
         try:
-            user = User.objects.create_user(
+            User.objects.create_user(
                 username=username,
                 email=email,
                 password=password
             )
-
-            # Store role in session
-            request.session['role'] = role
-
-            # Auto-login after register (optional but smooth UX)
-            login(request, user)
-
             return redirect('/login/')
 
         except IntegrityError:
@@ -60,6 +57,7 @@ def register_view(request):
 
     return render(request, 'accounts/register.html')
  
+ 
 #LOgin Logic
 def login_view(request):
     if request.method == 'POST':
@@ -67,21 +65,29 @@ def login_view(request):
         password = request.POST.get('password')
         role = request.POST.get('role')
 
+        if not all([username, password, role]):
+            return render(request, 'accounts/login.html', {
+                'error': 'All fields are required'
+            })
+
         user = authenticate(request, username=username, password=password)
 
-        if user and role in ['STUDENT', 'TEACHER']:
-            login(request, user)
+        if user is None:
+            return render(request, 'accounts/login.html', {
+                'error': 'Invalid username or password'
+            })
 
-            # ✅ STORE ROLE AFTER LOGIN
-            request.session['role'] = role
+        if role not in ['STUDENT', 'TEACHER']:
+            return render(request, 'accounts/login.html', {
+                'error': 'Invalid role'
+            })
 
-            return redirect('/dashboard/')
-
-        return render(request, 'accounts/login.html', {
-            'error': 'Invalid credentials or role'
-        })
+        login(request, user)
+        request.session['role'] = role
+        return redirect('/dashboard/')
 
     return render(request, 'accounts/login.html')
+ 
  
  
 #Logout Logic
@@ -154,40 +160,29 @@ def profile_view(request):
     return render(request, 'profile/profile.html', context)
 
 #ChatBot View
-# 🔐 Gemini API key (direct, no .env)
-GEMINI_API_KEY = "AIzaSyA4tQQ-rpHHwCRuOUm-zT4yWm5IYyig120"
-
-# Configure Gemini ONCE
-genai.configure(api_key=GEMINI_API_KEY)
-
 @login_required
 def chatbot_view(request):
-
     if request.method == "GET":
         return render(request, "chatbot/chatbot.html")
 
     if request.method == "POST":
         try:
+            genai.configure(api_key=settings.GOOGLE_API_KEY)
+
             data = json.loads(request.body)
             user_message = data.get("message", "").strip()
 
             if not user_message:
                 return JsonResponse({"reply": "Please type a message."})
 
-            # ✅ Correct Gemini model
             model = genai.GenerativeModel("gemini-1.5-flash")
-
             response = model.generate_content(user_message)
 
-            return JsonResponse({
-                "reply": response.text
-            })
+            return JsonResponse({"reply": response.text})
 
         except Exception as e:
-            print("❌ GEMINI ERROR:", repr(e))
-            return JsonResponse({
-                "reply": "Gemini error. Check server logs."
-            }) 
+            return JsonResponse({"reply": "Gemini error"})
+ 
 
 
 #Teacher Notes 
