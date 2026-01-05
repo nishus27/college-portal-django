@@ -16,10 +16,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
  
 
-# logger = logging.getLogger(__name__) 
-# client = genai.Client(api_key=settings.GOOGLE_API_KEY)
-# MY_API_KEY = "AIzaSyA4tQQ-rpHHwCRuOUm-zT4yWm5IYyig120"
-# client = genai.Client(api_key=MY_API_KEY)
+ 
  
 
 #Register logic

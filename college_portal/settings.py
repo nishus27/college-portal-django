@@ -31,7 +31,9 @@ if not GOOGLE_API_KEY:
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-z^aqiw20ivn4@njnt!jt9*r0ej9%8jq39#lj22whdarmpgnn&$'
+
+SECRET_KEY = os.environ.get("SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
