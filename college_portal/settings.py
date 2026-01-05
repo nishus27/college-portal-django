@@ -31,17 +31,20 @@ GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-dev-key-change-this")
+SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-secret-key-for-local-only")
+
 
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = [
     'college-portal-99hd.onrender.com',
     '.onrender.com',
+    '127.0.0.1',
+    'localhost'
 ]
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -154,3 +157,17 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/dashboard/'   # after successful login
 LOGOUT_REDIRECT_URL = '/login/'
+
+
+LOGGING = {
+    "version": 1,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "ERROR",
+    },
+}
