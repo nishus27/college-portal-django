@@ -12,7 +12,15 @@
 
     <!-- 🔹 SIDEBAR -->
     <div class="sidebar">
-        <h3>Dashboard</h3>
+        <div class="sidebar-logo">
+        <img src="{% static 'images/logo.png' %}" alt="Smart Campus Assistant">
+    </div>
+
+    <div class="sidebar-brand">
+        <span class="brand-smart">Smart</span>
+        <span class="brand-campus">Campus</span>
+        <span class="brand-assistant">Assistant</span>
+    </div>
 
         <a href="{% url 'profile' %}">Profile</a>
         <a href="/notices/">Notices</a>

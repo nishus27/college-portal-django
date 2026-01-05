@@ -1,0 +1,127 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f9;
+  padding: 20px;
+}
+
+.main {
+  max-width: 600px;
+  margin: auto;
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #2563eb;
+  color: #ffffff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 230px;
+    background: #1e293b;
+    color: white;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 20px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px;
+    margin-bottom: 10px;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s;
+}
+
+.sidebar a:hover {
+    background: #334155;
+}
+
+
+/* FORCE logo + text side by side */
+.sidebar-header {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;     /*✅ THIS FIXES IT*/
+    /* justify-content: flex-start; */
+    gap: 15px;
+    /* padding: 20px; */
+}
+ 
+
+/* circular logo */
+.sidebar-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #ffffff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.75);
+    flex-shrink: 0;
+}
+
+.sidebar-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* text container */
+.sidebar-brand {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.2;
+    padding: 0px;
+    
+ 
+    
+}
+
+/* text styles */
+.brand-smart {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    
+}
+
+.brand-campus {
+    color: #22c55e;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.brand-assistant {
+    color: #cbd5e1;
+    font-size: 14px;
+    font-weight: 500;
+}
