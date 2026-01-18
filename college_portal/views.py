@@ -12,8 +12,8 @@ from django.http import JsonResponse
 from django.core.paginator import Paginator
 from django.db.models import Q
 from openai import OpenAI
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
-print("OPENAI KEY FOUND:", bool(settings.OPENAI_API_KEY))
+
+ 
 
 #Register logic
 def register_view(request):
@@ -166,6 +166,8 @@ def chatbot_view(request):
         try:
             data = json.loads(request.body)
             message = data.get("message", "").strip()
+
+            client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
             if not message:
                 return JsonResponse({"reply": "Please type a message."})
