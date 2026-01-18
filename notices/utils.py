@@ -2,7 +2,6 @@ from PyPDF2 import PdfReader
 from openai import OpenAI
 from django.conf import settings
 
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 def extract_text_from_pdf(pdf_file):
     reader = PdfReader(pdf_file)
@@ -23,7 +22,7 @@ def ai_summarize_notice(description="", pdf_file=None):
 
     if not text:
         return "• No content available to summarize."
-        
+
     # ✅ Create client INSIDE function
     client = OpenAI(api_key=settings.OPENAI_API_KEY)
     response = client.chat.completions.create(
