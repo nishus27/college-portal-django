@@ -1,7 +1,7 @@
 from PyPDF2 import PdfReader
 from openai import OpenAI
 from django.conf import settings
-
+import os
 
 def extract_text_from_pdf(pdf_file):
     reader = PdfReader(pdf_file)
@@ -10,6 +10,16 @@ def extract_text_from_pdf(pdf_file):
         text += page.extract_text() or ""
     return text.strip()
 
+def get_openai_client():
+    """
+    Centralized OpenAI client creator.
+    Removes proxy env vars (Railway safety).
+    """
+    os.environ.pop("HTTP_PROXY", None)
+    os.environ.pop("HTTPS_PROXY", None)
+    os.environ.pop("ALL_PROXY", None)
+
+    return OpenAI(api_key=settings.OPENAI_API_KEY)
 
 def ai_summarize_notice(description="", pdf_file=None):
     text = ""
@@ -26,7 +36,7 @@ def ai_summarize_notice(description="", pdf_file=None):
     # ✅ Create client INSIDE function
     client = get_openai_client()#OpenAI(api_key=settings.OPENAI_API_KEY)
     response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4o-mini",
         messages=[
             {
                 "role": "system",
