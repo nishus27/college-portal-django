@@ -156,6 +156,18 @@ def profile_view(request):
 
     return render(request, 'profile/profile.html', context)
 
+ 
+import httpx
+
+def get_openai_client():
+    http_client = httpx.Client(proxies=None)  # 🔥 disable env proxies
+
+    return OpenAI(
+        api_key=settings.OPENAI_API_KEY,
+        http_client=http_client
+    )
+
+
 #ChatBot View
 @login_required
 def chatbot_view(request):
@@ -167,7 +179,7 @@ def chatbot_view(request):
             data = json.loads(request.body)
             message = data.get("message", "").strip()
 
-            client = OpenAI(api_key=settings.OPENAI_API_KEY)
+            client =get_openai_client() #OpenAI(api_key=settings.OPENAI_API_KEY)
 
             if not message:
                 return JsonResponse({"reply": "Please type a message."})
