@@ -157,16 +157,20 @@ def profile_view(request):
     return render(request, 'profile/profile.html', context)
 
  
-import httpx
+import os
+from openai import OpenAI
+from django.conf import settings
 
 def get_openai_client():
-    http_client = httpx.Client(proxies=None)  # 🔥 disable env proxies
+    # 🔥 REMOVE Railway-injected proxy vars
+    os.environ.pop("HTTP_PROXY", None)
+    os.environ.pop("HTTPS_PROXY", None)
+    os.environ.pop("ALL_PROXY", None)
 
     return OpenAI(
-        api_key=settings.OPENAI_API_KEY,
-        http_client=http_client
+        api_key=settings.OPENAI_API_KEY
     )
-
+ 
 
 #ChatBot View
 @login_required

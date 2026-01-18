@@ -24,7 +24,7 @@ def ai_summarize_notice(description="", pdf_file=None):
         return "• No content available to summarize."
 
     # ✅ Create client INSIDE function
-    client = OpenAI(api_key=settings.OPENAI_API_KEY)
+    client = get_openai_client()#OpenAI(api_key=settings.OPENAI_API_KEY)
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
