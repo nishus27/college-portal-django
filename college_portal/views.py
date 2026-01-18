@@ -189,7 +189,7 @@ def chatbot_view(request):
                 return JsonResponse({"reply": "Please type a message."})
 
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-3.5-turbo",
                 messages=[
                     {"role": "system", "content": "You are a helpful academic assistant for college students."},
                     {"role": "user", "content": message}

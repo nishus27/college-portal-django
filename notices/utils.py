@@ -26,7 +26,7 @@ def ai_summarize_notice(description="", pdf_file=None):
     # ✅ Create client INSIDE function
     client = get_openai_client()#OpenAI(api_key=settings.OPENAI_API_KEY)
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="gpt-3.5-turbo",
         messages=[
             {
                 "role": "system",
