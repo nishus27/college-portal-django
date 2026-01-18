@@ -14,25 +14,43 @@
             </span>
         </div>
 
-        <p class="mt-3 text-sm text-gray-700">
-            <strong>AI Summary:</strong><br>
-            {{ notice.ai_summary }}
-        </p>
+        <!-- ✅ AI SUMMARY (Bullet Points) -->
+        {% if notice.ai_summary %}
+        <div class="mt-3 text-sm text-gray-700">
+            <strong>🤖 AI Summary:</strong>
+            <ul class="list-disc list-inside mt-1 space-y-1">
+                {% for line in notice.ai_summary.splitlines %}
+                    {% if line %}
+                        <li>{{ line }}</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
 
+        <!-- Full Notice Text -->
         <details class="mt-3">
-            <summary class="cursor-pointer text-blue-600">Read Full Notice</summary>
-            <p class="mt-2 text-gray-700">{{ notice.description }}</p>
+            <summary class="cursor-pointer text-blue-600">
+                Read Full Notice
+            </summary>
+            <p class="mt-2 text-gray-700">
+                {{ notice.description }}
+            </p>
         </details>
 
+        <!-- PDF Attachment -->
         {% if notice.attachment %}
         <a href="{{ notice.attachment.url }}"
+           target="_blank"
            class="inline-block mt-3 text-sm text-white bg-green-600 px-3 py-1 rounded">
-            Download Attachment
+            📄 View / Download Notice PDF
         </a>
         {% endif %}
+
     </div>
     {% empty %}
     <p>No notices available.</p>
     {% endfor %}
 </div>
 {% endblock %}
+ 

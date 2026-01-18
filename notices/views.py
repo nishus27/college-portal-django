@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Notice
-from .utils import ai_summarize
+from .utils import ai_summarize_notice 
 
 
 @login_required
@@ -23,15 +23,21 @@ def teacher_notice_create(request):
         return redirect('/dashboard/')
 
     if request.method == 'POST':
+        attachment = request.FILES.get('attachment')
+
         notice = Notice.objects.create(
             title=request.POST['title'],
             description=request.POST['description'],
             category=request.POST['category'],
-            attachment=request.FILES.get('attachment'),
+            attachment=attachment,
             created_by=request.user
         )
 
-        notice.ai_summary = ai_summarize(notice.description)
+        # ✅ AI summary from PDF if exists, else from description
+        notice.ai_summary = ai_summarize_notice(
+            description=notice.description,
+            pdf_file=attachment
+        )
         notice.save()
 
         return redirect('teacher_notice_list')

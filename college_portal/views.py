@@ -9,13 +9,11 @@ import logging
 import os
 import json
 from django.http import JsonResponse
-import google.generativeai as genai
 from django.core.paginator import Paginator
 from django.db.models import Q
- 
-
- 
- 
+from openai import OpenAI
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
+print("OPENAI KEY FOUND:", bool(settings.OPENAI_API_KEY))
 
 #Register logic
 def register_view(request):
@@ -166,24 +164,31 @@ def chatbot_view(request):
 
     if request.method == "POST":
         try:
-            genai.configure(api_key=settings.GOOGLE_API_KEY)
-
             data = json.loads(request.body)
-            user_message = data.get("message", "").strip()
+            message = data.get("message", "").strip()
 
-            if not user_message:
+            if not message:
                 return JsonResponse({"reply": "Please type a message."})
 
-            model = genai.GenerativeModel("gemini-1.5-flash")
-            response = model.generate_content(user_message)
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[
+                    {"role": "system", "content": "You are a helpful academic assistant for college students."},
+                    {"role": "user", "content": message}
+                ],
+                max_tokens=300
+            )
 
-            return JsonResponse({"reply": response.text})
+            return JsonResponse({
+                "reply": response.choices[0].message.content
+            })
 
         except Exception as e:
-            return JsonResponse({"reply": "Gemini error"})
+            print("❌ OpenAI Error:", e)
+            return JsonResponse({
+                "reply": "AI service unavailable. Please try later."
+            })
  
-
-
 #Teacher Notes 
 from notes.models import Note
 
